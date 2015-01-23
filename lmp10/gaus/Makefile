@@ -3,7 +3,7 @@ libge: matrix.o pivot.o piv_ge_solver.o
 
 matrix.o: matrix.c matrix.h
 pivot.o: pivot.c matrix.h
-piv_ge_solver.o: piv_ge_solver.c piv_ge_solver.h matrix.h
+piv_ge_solver.o: piv_ge_solver.c piv_ge_solver.h matrix.h -lgsl -lgslcblas
 
 .PHONY: clean
 
