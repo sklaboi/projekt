@@ -5,8 +5,7 @@
 int piv_ge_solver (matrix_t * eqs){
 
 	if (eqs != NULL) {
-		//pivot_ge_in_situ_matrix (eqs);
-		gsl_matrix * m = gsl_matrix_alloc (eqs->rn, eqs->cn);
+		gsl_matrix * m = gsl_matrix_alloc (eqs->rn, eqs->cn); //Ta funkcja gsl_matrix_alloc(size_t n1, size_t n2) tworze macierz w rozmierze n1xn2, zwracajac wskaznik do nowo zainicjowanej struktury macierzy
 		m->size1 = eqs->rn;
 		m->size2 = eqs->cn;
 		m->data = eqs->e;
@@ -20,7 +19,7 @@ int piv_ge_solver (matrix_t * eqs){
 			piv = i;
 			// void gsl_matrix_max_index (m,i, j);
 			if (piv != k) /* jeśli diag. nta + piv * m->size2 + k)tae jest pivtem - wymień wiersze */
-			gsl_matrix_swap_rows (m, piv, k);
+			gsl_matrix_swap_rows (m, piv, k);//P.W.: int gsl_matrix_swap_rows(gsl_matrix * M, size_t i, size_t j):Funkcja ta wymienia i-tego i j-tej wiersze matrycy w mejscu M;
 
 			for (i = k + 1; i < m->size1; i++) { /* pętla po kolejnych wierszach poniżej diagonalii k,k */
 				double d = *((m->data + i * m->size2 + k)) / *((m->data + piv * m->size2 + k));
@@ -32,7 +31,7 @@ int piv_ge_solver (matrix_t * eqs){
 		eqs->cn = m->size2;
 		eqs->e = m->data;
 
-		gsl_matrix_free(m);
+		gsl_matrix_free(m);//Ta funkcja zwalnia wczesniej przydzielona macierz m; U nas matryca zostala utworzona za pomoca gsl_matrix_alloc, to nastepnie "blok" bazowej matrycy beda tez zwalniane
 		if (bs_matrix (eqs) == 0)
 		return 0;
 
